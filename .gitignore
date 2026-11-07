@@ -4,6 +4,9 @@
 # Uploaded documents
 uploads/
 
+# Downloaded sample documentation (third-party content)
+sample-docs/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -32,3 +35,10 @@ Thumbs.db
 
 # Docker
 *.log
+
+# Frontend (Next.js)
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo

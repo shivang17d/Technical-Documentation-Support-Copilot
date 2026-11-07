@@ -12,14 +12,27 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
-  app:
-    build: .
+
+  backend:
+    build: ./backend
     env_file: .env
     environment:
       DATABASE_URL: postgresql://rag:rag@db:5432/vector_rag
+      UPLOAD_DIR: /srv/uploads
+      FRONTEND_URL: http://localhost:3000
     ports: ["8000:8000"]
     volumes: ["./uploads:/srv/uploads"]
     depends_on:
       db: {condition: service_healthy}
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        BACKEND_URL: http://backend:8000
+    ports: ["3000:3000"]
+    depends_on:
+      - backend
+
 volumes:
   pgdata:
